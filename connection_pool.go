@@ -51,7 +51,7 @@ func (self *ConnectionPool) put(client *grpc.ClientConn) error {
 		return client.Close()
 	}
 
-	self.idle.PushFront(client)
+	self.idle.PushBack(client)
 	self.mu.Unlock()
 	if self.cond != nil {
 		self.cond.Signal()
